@@ -19,7 +19,7 @@ FROM(
                     THEN '(' + CAST(@Precision AS NVARCHAR) + ',' + CAST(@Scale AS NVARCHAR) + ')'
                    ELSE ''
                END Suffix,
-              CASE WHEN @CollationName IS NULL THEN ''
+              CASE WHEN @CollationName IS NULL OR is_user_defined = 1 THEN ''
                    ELSE ' COLLATE ' + @CollationName
                END Collation
           FROM sys.types WHERE user_type_id = @TypeId
